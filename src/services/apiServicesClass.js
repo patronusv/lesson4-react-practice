@@ -27,4 +27,28 @@ export default class ApiServicesClass {
       .then(response => response.data)
       .catch(error => error);
   }
+  getSpendingOpts() {
+    return axios
+      .get('spending-opts')
+      .then(response => response.data)
+      .catch(error => error);
+  }
+  getIncomeOpts() {
+    return axios
+      .get('income-opts')
+      .then(response => response.data)
+      .catch(error => error);
+  }
+  postOpts(category, data) {
+    return axios
+      .post(`${category}-opts`, data)
+      .then(response => response.data)
+      .catch(error => error);
+  }
+  patchOpts(category, data, id) {
+    return axios
+      .patch(`${category}-opts/${id}`, data)
+      .then(response => response.data)
+      .catch(error => error);
+  } 
 }

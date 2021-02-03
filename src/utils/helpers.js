@@ -1,4 +1,8 @@
 import moment from 'moment';
+import ApiServicesClass from './countTotal';
+
+const { getDayPeriod, getWeekPeriod, getMonthPeriod } = new ApiServicesClass();
+
 export const categoryResult = (data, cat) => {
   const uniqueCategory = data.map(item => item[cat]).filter((el, index, array) => array.indexOf(el) === index);
   return uniqueCategory
@@ -42,3 +46,21 @@ export const searchCategoryName = (category, item, options) => {
   const optionsArr = Object.entries(options);
   return optionsArr.find(([key]) => key.includes(category))[1].options.find(el => el.value === item).title;
 };
+
+export const getDataByPeriodDate = (dataList, period, date) => {
+  switch (period) {
+    case 'day':
+      return getDayPeriod(dataList, date);
+    case 'week':
+      return getWeekPeriod(dataList, date);
+    case 'month':
+      return getMonthPeriod(dataList, date);
+    case 'year':
+      console.log(dataList, date);
+      return;
+    default:
+      return;
+  }
+};
+
+export const getDataByCategory = (category, incomeData, spendData) => (category === 'outlay' ? spendData : category === 'income' ? incomeData : []);

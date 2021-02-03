@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, withRouter } from 'react-router-dom';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import { resetItemId } from '../../../redux/activeCard/actionActiveCard';
 import { getItemId } from '../../../redux/activeCard/selectorsActiveCard';
-const CardTitle = ({ title, onToggleCard, history }) => {
+const CardTitle = ({ title, mustSubmit = true }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { state } = useLocation();
   const id = useSelector(getItemId);
   const goBackHome = () => {
@@ -17,7 +18,7 @@ const CardTitle = ({ title, onToggleCard, history }) => {
         Go back
       </button>
       <h2>{title}</h2>
-      <button type="submit">Ok</button>
+      {mustSubmit && <button type="submit">Ok</button>}
     </header>
   );
 };

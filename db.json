@@ -161,6 +161,32 @@
       "total": "9999",
       "currency": "rub",
       "id": 7
+    },
+    {
+      "date": "2021-02-03",
+      "time": "14:32",
+      "income": "salary",
+      "total": "4444",
+      "currency": "rub",
+      "id": 8
+    }
+  ],
+  "income-opts": [],
+  "spending-opts": [
+    {
+      "value": "food",
+      "title": "Еда",
+      "id": 1
+    },
+    {
+      "value": "beverages",
+      "title": "Напитки",
+      "id": 2
+    },
+    {
+      "value": "clothes",
+      "title": "Одежда",
+      "id": 3
     }
   ]
 }

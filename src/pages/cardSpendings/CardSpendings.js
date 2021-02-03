@@ -11,8 +11,13 @@ import { useStore } from '../../components/storeProvider/StoreProvider';
 import { getCategory, getItemId } from '../../redux/activeCard/selectorsActiveCard';
 import { resetItemId, setCategory } from '../../redux/activeCard/actionActiveCard';
 import { findSpending } from '../../redux/dataLists/selectorsDataLists';
+import { getSpendingOpts } from '../../redux/options/selectorOptions';
+import ApiServicesClass from '../../services/apiServicesClass';
+import { setSpendingOpts } from '../../redux/options/actionOptions';
 
 const { outlaySets, currencySets } = selectOptions;
+
+const api = new ApiServicesClass();
 
 const CardSpendings = () => {
   const dispatch = useDispatch();
@@ -20,6 +25,9 @@ const CardSpendings = () => {
   const { state } = useLocation();
   const { params } = useRouteMatch();
   const id = useSelector(getItemId);
+  const spendingOpts = useSelector(getSpendingOpts);
+
+  console.log('spendingOpts', spendingOpts);
   const { onHandleSubmit, getCardData } = useStore();
   const cardId = useSelector(getCategory);
   // const cardId = 'spending';
@@ -58,6 +66,13 @@ const CardSpendings = () => {
 
   useEffect(() => {
     dispatch(setCategory('spending'));
+    api
+      .getSpendingOpts()
+      .then(data =>
+        data.length
+          ? dispatch(setSpendingOpts(data))
+          : outlaySets.options.map(item => api.postOpts('spending', item).then(response => dispatch(setSpendingOpts(response)))),
+      );
     // eslint-disable-next-line
   }, []);
   // useEffect(() => {}, [id]);

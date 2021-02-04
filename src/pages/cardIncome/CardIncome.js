@@ -9,7 +9,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useStore } from '../../components/storeProvider/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, getItemId } from '../../redux/activeCard/selectorsActiveCard';
-import { resetItemId, setCategory } from '../../redux/activeCard/actionActiveCard';
+import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import { findIncome } from '../../redux/dataLists/selectorsDataLists';
 
 const { incomeSets, currencySets } = selectOptions;

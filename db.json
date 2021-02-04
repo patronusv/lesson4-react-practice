@@ -103,6 +103,70 @@
       "total": "",
       "currency": "rub",
       "id": 13
+    },
+    {
+      "date": "2021-02-04",
+      "time": "14:51",
+      "outlay": "food",
+      "total": "222",
+      "currency": "rub",
+      "id": 14
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:11",
+      "outlay": "beverages",
+      "total": "2323",
+      "currency": "rub",
+      "id": 15
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:13",
+      "outlay": "clothes",
+      "total": "8888",
+      "currency": "rub",
+      "id": 16
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:16",
+      "outlay": "food",
+      "total": "111",
+      "currency": "rub",
+      "id": 17
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:17",
+      "outlay": "food",
+      "total": "222",
+      "currency": "rub",
+      "id": 18
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:19",
+      "outlay": "beverages",
+      "total": "333",
+      "currency": "rub",
+      "id": 19
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:31",
+      "outlay": "food",
+      "total": "123",
+      "currency": "rub",
+      "id": 20
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:41",
+      "outlay": "beverages",
+      "total": "334",
+      "currency": "rub",
+      "id": 21
     }
   ],
   "income": [
@@ -169,6 +233,22 @@
       "total": "4444",
       "currency": "rub",
       "id": 8
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:31",
+      "income": "lottery",
+      "total": "555",
+      "currency": "rub",
+      "id": 9
+    },
+    {
+      "date": "2021-02-04",
+      "time": "17:43",
+      "income": "salary",
+      "total": "3232",
+      "currency": "rub",
+      "id": 10
     }
   ],
   "income-opts": [],

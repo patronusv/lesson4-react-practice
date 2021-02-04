@@ -1,12 +1,15 @@
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CountTotal from '../../utils/countTotal';
 import Button from '../shared/button/Button';
 import Section from '../shared/section/Section';
 import { getIncome, getSpending } from '../../redux/dataLists/selectorsDataLists';
+import { useEffect } from 'react';
+import { reset } from '../../redux/sets/sliceSets';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const income = useSelector(getIncome);
   const spending = useSelector(getSpending);
   const history = useHistory();
@@ -15,6 +18,10 @@ const Home = () => {
   const goToIncome = () => history.push('/income');
   const goToListIncome = () => history.push('/list/income');
   const goToListOutlay = () => history.push('/list/outlay');
+  useEffect(() => {
+    dispatch(reset());
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Section>

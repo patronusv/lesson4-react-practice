@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+
 import Button from '../../components/shared/button/Button';
 import Section from '../../components/shared/section/Section';
 import { Select } from '../../components/shared/select/Select';
@@ -12,12 +12,9 @@ import { calculatePeriod, categoryResult, getDataByCategory, getDataByPeriodDate
 import DataListItem from '../../components/dataListIem/DataListItem';
 import { getIncome, getSpending } from '../../redux/dataLists/selectorsDataLists';
 import { getDate, getPeriod } from '../../redux/sets/selectorSets';
-import { setDate, setPeriod } from '../../redux/sets/actionSets';
-import ApiServicesClass from '../../services/apiServicesClass';
+import { setDate, setPeriod } from '../../redux/sets/sliceSets';
 
 const { periodList } = selectOptions;
-const api = new ApiServicesClass();
-const { getDayPeriod, getWeekPeriod, getMonthPeriod } = api;
 
 const DataList = () => {
   const history = useHistory();
@@ -29,7 +26,6 @@ const DataList = () => {
   const period = useSelector(getPeriod);
 
   const [periodStr, setPeriodStr] = useState('');
-  const [list, setList] = useState([]);
   const [renderList, setRenderList] = useState([]);
 
   const onHandleDate = e => {
@@ -37,8 +33,6 @@ const DataList = () => {
   };
   const goBack = () => history.push('/');
   const { category } = match.params;
-
-  // const dataList = getDataByCategory(category, incomeData, spendData);
 
   const onHandlePeriod = e => {
     const result = e.target.value;
@@ -49,7 +43,6 @@ const DataList = () => {
     const dataList = getDataByCategory(category, incomeData, spendData);
     calculatePeriod(date, period, setPeriodStr);
     const currentDataList = getDataByPeriodDate(dataList, period, date);
-    // setList(currentDataList);
     const renderDataList = categoryResult(currentDataList, category);
     setRenderList(renderDataList);
 

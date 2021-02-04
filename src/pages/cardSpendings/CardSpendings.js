@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form } from '../../components/shared/form/Form';
 import { Input } from '../../components/shared/input/Input';
@@ -9,11 +9,11 @@ import moment from 'moment';
 import CardTitle from '../../components/shared/cardTitle/CardTitle';
 import { useStore } from '../../components/storeProvider/StoreProvider';
 import { getCategory, getItemId } from '../../redux/activeCard/selectorsActiveCard';
-import { resetItemId, setCategory } from '../../redux/activeCard/actionActiveCard';
+import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import { findSpending } from '../../redux/dataLists/selectorsDataLists';
 import { getSpendingOpts } from '../../redux/options/selectorOptions';
 import ApiServicesClass from '../../services/apiServicesClass';
-import { setSpendingOpts } from '../../redux/options/actionOptions';
+import { setSpendingOpts } from '../../redux/options/sliceOptions';
 
 const { outlaySets, currencySets } = selectOptions;
 
@@ -23,7 +23,6 @@ const CardSpendings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { state } = useLocation();
-  const { params } = useRouteMatch();
   const id = useSelector(getItemId);
   const spendingOpts = useSelector(getSpendingOpts);
 

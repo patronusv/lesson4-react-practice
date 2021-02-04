@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
-import { resetItemId } from '../../../redux/activeCard/actionActiveCard';
+import { resetItemId } from '../../../redux/activeCard/sliceActiveCard';
 import { getItemId } from '../../../redux/activeCard/selectorsActiveCard';
 const CardTitle = ({ title, mustSubmit = true }) => {
   const dispatch = useDispatch();

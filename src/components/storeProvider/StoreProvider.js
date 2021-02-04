@@ -1,10 +1,18 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+
 import ApiServicesClass from '../../services/apiServicesClass';
-import { addIncome, addSpending, getIncomeData, getSpendingData, updateIncome, updateSpending } from '../../redux/dataLists/actionDataLists';
+import { addIncome, addSpending, getIncomeData, getSpendingData, updateIncome, updateSpending } from '../../redux/dataLists/sliceDataLists';
 import { findIncome, findSpending } from '../../redux/dataLists/selectorsDataLists';
-import { resetItemId } from '../../redux/activeCard/actionActiveCard';
+import { resetItemId } from '../../redux/activeCard/sliceActiveCard';
+import {
+  operationGetIncomeData,
+  operationGetSpendingData,
+  operationPatchIncome,
+  operationPatchSpending,
+  operationPostIncome,
+  operationPostSpending,
+} from '../../redux/dataLists/operationDataLists';
 
 const StoreContext = createContext();
 
@@ -19,36 +27,26 @@ const StoreProvider = ({ children }) => {
   // const [spendData, setSpendData] = useState([]);
   // const [incomeData, setIncomeData] = useState([]);
   const [error, setError] = useState(null);
-  const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
+
   const [period, setPeriod] = useState({});
   const api = new ApiServicesClass();
 
   const onHandleSubmit = async ({ key, data, id = null }) => {
+    console.log('datahandlesubmit', data);
+    console.log('idhandlesubmit', id);
     if (!id) {
-      try {
-        const responseData = await api.post(key, data);
-        if (key === 'spending') {
-          dispatch(addSpending(responseData));
-          // setSpendData(prevState => [...prevState, responseData]);
-        } else if (key === 'income') {
-          dispatch(addIncome(responseData));
-          // setIncomeData(prevState => [...prevState, responseData]);
-        }
-      } catch (error) {
-        setError(error);
+      if (key === 'spending') {
+        dispatch(operationPostSpending(key, data));
+      } else if (key === 'income') {
+        dispatch(operationPostIncome(key, data));
       }
     } else {
-      try {
-        const responseData = await api.patch(key, data, id);
-        if (key === 'spending') {
-          dispatch(updateSpending({ item: responseData, id }));
-          // setSpendData(prevState => [...prevState, responseData]);
-        } else if (key === 'income') {
-          dispatch(updateIncome({ item: responseData, id }));
-          // setIncomeData(prevState => [...prevState, responseData]);
-        }
-      } catch (error) {
-        setError(error);
+      if (key === 'spending') {
+        dispatch(operationPatchSpending(key, data, id));
+        // setSpendData(prevState => [...prevState, responseData]);
+      } else if (key === 'income') {
+        dispatch(operationPatchIncome(key, data, id));
+        // setIncomeData(prevState => [...prevState, responseData]);
       }
     }
     dispatch(resetItemId());
@@ -63,26 +61,8 @@ const StoreProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    api
-      .getSpending()
-      .then(result => {
-        // setSpendData(result);
-        dispatch(getSpendingData(result));
-      })
-      .catch(error => {
-        console.log(error);
-        setError(error);
-      });
-    api
-      .getIncome()
-      .then(result => {
-        // setIncomeData(result);
-        dispatch(getIncomeData(result));
-      })
-      .catch(error => {
-        console.log(error);
-        setError(error);
-      });
+    dispatch(operationGetSpendingData());
+    dispatch(operationGetIncomeData());
     // eslint-disable-next-line
   }, []);
 

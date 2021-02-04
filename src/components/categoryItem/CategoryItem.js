@@ -1,6 +1,6 @@
 import Button from '../shared/button/Button';
 import { useDispatch } from 'react-redux';
-import { setItemId } from '../../redux/activeCard/actionActiveCard';
+import { setItemId } from '../../redux/activeCard/sliceActiveCard';
 
 const CategoryItem = ({ item, goToEdit }) => {
   const dispatch = useDispatch();

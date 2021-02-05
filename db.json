@@ -251,7 +251,23 @@
       "id": 10
     }
   ],
-  "income-opts": [],
+  "income-opts": [
+    {
+      "value": "salary",
+      "title": "Зарплата",
+      "id": 1
+    },
+    {
+      "value": "deposit",
+      "title": "Депозит",
+      "id": 2
+    },
+    {
+      "value": "lottery",
+      "title": "Лотерея",
+      "id": 3
+    }
+  ],
   "spending-opts": [
     {
       "value": "food",

@@ -10,10 +10,29 @@ const sliceError = createSlice({
     postSpendingError: (_, { payload }) => payload,
     patchIncomeError: (_, { payload }) => payload,
     patchSpendingError: (_, { payload }) => payload,
+    incomeOptsError: (_, { payload }) => payload,
+    spendingOptsError: (_, { payload }) => payload,
+    postIncomeOptsError: (_, { payload }) => payload,
+    postSpendingOptsError: (_, { payload }) => payload,
+    patchIncomeOptsError: (_, { payload }) => payload,
+    patchSpendingOptsError: (_, { payload }) => payload,
   },
 });
 
 const reducerError = sliceError.reducer;
 export default reducerError;
 
-export const { incomeError, spendingError, postIncomeError, postSpendingError, patchIncomeError, patchSpendingError } = sliceError.actions;
+export const {
+  incomeError,
+  spendingError,
+  postIncomeError,
+  postSpendingError,
+  patchIncomeError,
+  patchSpendingError,
+  incomeOptsError,
+  spendingOptsError,
+  postIncomeOptsError,
+  postSpendingOptsError,
+  patchIncomeOptsError,
+  patchSpendingOptsError,
+} = sliceError.actions;

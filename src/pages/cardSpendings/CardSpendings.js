@@ -13,7 +13,8 @@ import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import { findSpending } from '../../redux/dataLists/selectorsDataLists';
 import { getSpendingOpts } from '../../redux/options/selectorOptions';
 import ApiServicesClass from '../../services/apiServicesClass';
-import { setSpendingOpts } from '../../redux/options/sliceOptions';
+import { postSpendingOpt, getInitSpendingOpts } from '../../redux/options/sliceOptions';
+import withOptionsCards from '../../components/HOCs/withOptionsCards';
 
 const { outlaySets, currencySets } = selectOptions;
 
@@ -64,17 +65,16 @@ const CardSpendings = () => {
   };
 
   useEffect(() => {
-    dispatch(setCategory('spending'));
-    api
-      .getSpendingOpts()
-      .then(data =>
-        data.length
-          ? dispatch(setSpendingOpts(data))
-          : outlaySets.options.map(item => api.postOpts('spending', item).then(response => dispatch(setSpendingOpts(response)))),
-      );
+    // dispatch(setCategory('spending'));
+    // api
+    //   .getSpendingOpts()
+    //   .then(data =>
+    //     data.length
+    //       ? dispatch(getInitSpendingOpts(data))
+    //       : outlaySets.options.map(item => api.postOpts('spending', item).then(response => dispatch(postSpendingOpt(response)))),
+    //   );
     // eslint-disable-next-line
   }, []);
-  // useEffect(() => {}, [id]);
 
   return (
     <div>
@@ -89,4 +89,4 @@ const CardSpendings = () => {
     </div>
   );
 };
-export default CardSpendings;
+export default withOptionsCards(CardSpendings);

@@ -10,10 +10,30 @@ const sliceLoader = createSlice({
     requestSpending: () => true,
     requestPatchIncome: () => true,
     requestPatchSpending: () => true,
+    requestIncomeOpts: () => true,
+    requestSpendingOpts: () => true,
+    requestPostIncomeOpts: () => true,
+    requestPostSpendingOpts: () => true,
+    requestPatchIncomeOpts: () => true,
+    requestPatchSpendingOpts: () => true,
     loaderOff: () => false,
   },
 });
 const reducerLoader = sliceLoader.reducer;
 export default reducerLoader;
 
-export const { incomeList, spendingList, requestIncome, requestSpending, requestPatchIncome, requestPatchSpending, loaderOff } = sliceLoader.actions;
+export const {
+  incomeList,
+  spendingList,
+  requestIncome,
+  requestSpending,
+  requestPatchIncome,
+  requestPatchSpending,
+  loaderOff,
+  requestIncomeOpts,
+  requestSpendingOpts,
+  requestPostIncomeOpts,
+  requestPostSpendingOpts,
+  requestPatchIncomeOpts,
+  requestPatchSpendingOpts,
+} = sliceLoader.actions;

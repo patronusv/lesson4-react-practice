@@ -7,6 +7,7 @@ import Section from '../shared/section/Section';
 import { getIncome, getSpending } from '../../redux/dataLists/selectorsDataLists';
 import { useEffect } from 'react';
 import { reset } from '../../redux/sets/sliceSets';
+import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Home = () => {
   const goToListOutlay = () => history.push('/list/outlay');
   useEffect(() => {
     dispatch(reset());
+    dispatch(setCategory(''));
     // eslint-disable-next-line
   }, []);
 

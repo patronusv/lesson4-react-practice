@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, getItemId } from '../../redux/activeCard/selectorsActiveCard';
 import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import { findIncome } from '../../redux/dataLists/selectorsDataLists';
+import withOptionsCards from '../../components/HOCs/withOptionsCards';
 
 const { incomeSets, currencySets } = selectOptions;
 
@@ -52,7 +53,7 @@ const CardIncome = () => {
     id ? history.push({ pathname: state.from, state: state.data }) : history.push('/');
   };
   useEffect(() => {
-    dispatch(setCategory('income'));
+    // dispatch(setCategory('income'));
     // eslint-disable-next-line
   }, []);
 
@@ -69,4 +70,4 @@ const CardIncome = () => {
     </div>
   );
 };
-export default CardIncome;
+export default withOptionsCards(CardIncome);

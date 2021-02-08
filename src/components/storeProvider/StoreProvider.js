@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ApiServicesClass from '../../services/apiServicesClass';
 import { addIncome, addSpending, getIncomeData, getSpendingData, updateIncome, updateSpending } from '../../redux/dataLists/sliceDataLists';
 import { findIncome, findSpending } from '../../redux/dataLists/selectorsDataLists';
-import { resetItemId, setCategory } from '../../redux/activeCard/sliceActiveCard';
+import { resetCard, resetItemId, setCategory } from '../../redux/activeCard/sliceActiveCard';
 import {
   operationGetIncomeData,
   operationGetSpendingData,
@@ -43,6 +43,7 @@ const StoreProvider = ({ children }) => {
         dispatch(operationPostIncome(key, data));
       }
     } else {
+      console.log('update');
       if (key === 'spending') {
         dispatch(operationPatchSpending(key, data, id));
         // setSpendData(prevState => [...prevState, responseData]);
@@ -52,6 +53,7 @@ const StoreProvider = ({ children }) => {
       }
     }
     dispatch(resetItemId());
+    dispatch(resetCard());
   };
 
   const getPeriod = ({ date, period }) => setPeriod({ date, period });

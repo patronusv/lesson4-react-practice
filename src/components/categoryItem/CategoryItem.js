@@ -8,7 +8,6 @@ const CategoryItem = ({ item, goToEdit }) => {
   const onEditClick = () => {
     goToEdit(id);
     dispatch(setItemId(id));
-    console.log('id', id);
   };
   return (
     <li>

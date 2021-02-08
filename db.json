@@ -167,6 +167,14 @@
       "total": "334",
       "currency": "rub",
       "id": 21
+    },
+    {
+      "date": "2021-02-08",
+      "time": "02:03",
+      "outlay": "food",
+      "total": "1234",
+      "currency": "rub",
+      "id": 22
     }
   ],
   "income": [
@@ -249,40 +257,16 @@
       "total": "3232",
       "currency": "rub",
       "id": 10
+    },
+    {
+      "date": "2021-02-08",
+      "time": "02:03",
+      "income": "salary",
+      "total": "12345",
+      "currency": "rub",
+      "id": 11
     }
   ],
-  "income-opts": [
-    {
-      "value": "salary",
-      "title": "Зарплата",
-      "id": 1
-    },
-    {
-      "value": "deposit",
-      "title": "Депозит",
-      "id": 2
-    },
-    {
-      "value": "lottery",
-      "title": "Лотерея",
-      "id": 3
-    }
-  ],
-  "spending-opts": [
-    {
-      "value": "food",
-      "title": "Еда",
-      "id": 1
-    },
-    {
-      "value": "beverages",
-      "title": "Напитки",
-      "id": 2
-    },
-    {
-      "value": "clothes",
-      "title": "Одежда",
-      "id": 3
-    }
-  ]
+  "income-opts": [],
+  "spending-opts": []
 }

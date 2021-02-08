@@ -50,7 +50,10 @@ export const operationPatchSpending = (category, data, id) => dispatch => {
   dispatch(requestPatchSpending());
   api
     .patch(category, data, id)
-    .then(data => dispatch(updateSpending(data)))
+    .then(data => {
+      console.log('data in patchSpending', data);
+      dispatch(updateSpending(data));
+    })
     .catch(error => dispatch(patchSpendingError(error)))
     .finally(() => dispatch(loaderOff()));
 };

@@ -21,7 +21,7 @@ const Home = () => {
   const goToListOutlay = () => history.push('/list/outlay');
   useEffect(() => {
     dispatch(reset());
-    dispatch(setCategory(''));
+    dispatch(setCategory(''));    
     // eslint-disable-next-line
   }, []);
 

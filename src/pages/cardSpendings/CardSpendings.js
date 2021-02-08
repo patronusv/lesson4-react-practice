@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form } from '../../components/shared/form/Form';
 import { Input } from '../../components/shared/input/Input';
@@ -8,13 +8,14 @@ import selectOptions from '../../utils/selectOptions';
 import moment from 'moment';
 import CardTitle from '../../components/shared/cardTitle/CardTitle';
 import { useStore } from '../../components/storeProvider/StoreProvider';
-import { getCategory, getItemId } from '../../redux/activeCard/selectorsActiveCard';
-import { setCategory } from '../../redux/activeCard/sliceActiveCard';
+import { getActiveCard, getCategory, getItemId } from '../../redux/activeCard/selectorsActiveCard';
+import { setCard, setCategory, setInitialCard } from '../../redux/activeCard/sliceActiveCard';
 import { findSpending } from '../../redux/dataLists/selectorsDataLists';
 import { getSpendingOpts } from '../../redux/options/selectorOptions';
 import ApiServicesClass from '../../services/apiServicesClass';
 import { postSpendingOpt, getInitSpendingOpts } from '../../redux/options/sliceOptions';
 import withOptionsCards from '../../components/HOCs/withOptionsCards';
+import Button from '../../components/shared/button/Button';
 
 const { outlaySets, currencySets } = selectOptions;
 
@@ -23,39 +24,21 @@ const api = new ApiServicesClass();
 const CardSpendings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const match = useRouteMatch();
   const { state } = useLocation();
   const id = useSelector(getItemId);
   const spendingOpts = useSelector(getSpendingOpts);
+  const { date, time, outlay, total, currency } = useSelector(getActiveCard);
 
   console.log('spendingOpts', spendingOpts);
-  const { onHandleSubmit, getCardData } = useStore();
+  const { onHandleSubmit } = useStore();
   const cardId = useSelector(getCategory);
-  // const cardId = 'spending';
-  console.log(id);
   const cardData = useSelector(findSpending);
-  console.log('cardData', getCardData({ category: cardId }));
-  const [date, setDate] = useState(cardData ? cardData.date : moment(Date.now()).format('YYYY-MM-DD'));
-  const [time, setTime] = useState(cardData ? cardData.time : moment(Date.now()).format('HH:mm'));
-  // const [outlay, setOutlay] = useState('clothes');
-  const [outlay, setOutlay] = useState(cardData ? cardData.outlay : outlaySets.options[0].value);
-  const [total, setTotal] = useState(cardData ? cardData.total : '');
-  const [currency, setCurrency] = useState(cardData ? cardData.currency : currencySets.options[0].value);
+
   const onHandleChange = e => {
     const { name, value } = e.target;
-    switch (name) {
-      case 'date':
-        return setDate(value);
-      case 'time':
-        return setTime(value);
-      case 'total':
-        return setTotal(value);
-      case 'outlay':
-        return setOutlay(value);
-      case 'currency':
-        return setCurrency(value);
-      default:
-        return;
-    }
+    dispatch(setCard({ [name]: value }));
   };
   const onFormSubmit = e => {
     e.preventDefault();
@@ -64,17 +47,31 @@ const CardSpendings = () => {
     id ? history.push({ pathname: state.from, state: state.data }) : history.push('/');
   };
 
+  const onOpenCategories = () => {
+    history.push({
+      pathname: `${match.url.split('/')[1]}/category`,
+      state: {
+        from: location,
+      },
+    });
+  };
+
   useEffect(() => {
-    // dispatch(setCategory('spending'));
-    // api
-    //   .getSpendingOpts()
-    //   .then(data =>
-    //     data.length
-    //       ? dispatch(getInitSpendingOpts(data))
-    //       : outlaySets.options.map(item => api.postOpts('spending', item).then(response => dispatch(postSpendingOpt(response)))),
-    //   );
+    const activeCard = {
+      date: cardData ? cardData.date : moment(Date.now()).format('YYYY-MM-DD'),
+      time: cardData ? cardData.time : moment(Date.now()).format('HH:mm'),
+      outlay: cardData ? cardData.outlay : spendingOpts[0]?.value,
+      total: cardData ? cardData.total : '',
+      currency: cardData ? cardData.currency : currencySets.options[0].value,
+    };
+    !date && dispatch(setInitialCard(activeCard));
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    dispatch(setCard({ outlay: spendingOpts[0]?.value }));
+    // eslint-disable-next-line
+  }, [spendingOpts[0]?.value]);
 
   return (
     <div>
@@ -82,7 +79,8 @@ const CardSpendings = () => {
         <CardTitle title="Расходы" />
         <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
         <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-        <Select value={outlay} onChange={onHandleChange} sets={outlaySets} />
+        <Button title={!outlay ? 'Выберите категорию' : outlay} onClick={onOpenCategories} />
+        {/* <Select value={outlay} onChange={onHandleChange} sets={outlaySets} /> */}
         <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
         <Select onChange={onHandleChange} sets={currencySets} />
       </Form>

@@ -20,10 +20,10 @@ const sliceOptions = createSlice({
       state.spendingOpts = [...payload];
     },
     postIncomeOpt: (state, { payload }) => {
-      state.incomeOpts = [...state.incomeOpts, payload];
+      state.incomeOpts = payload ? [...state.incomeOpts, payload] : [...state.incomeOpts];
     },
     postSpendingOpt: (state, { payload }) => {
-      state.spendingOpts = [...state.spendingOpts, payload];
+      state.spendingOpts = payload ? [...state.spendingOpts, payload] : [...state.spendingOpts];
     },
     patchIncomeOpt: (state, { payload }) => {
       state.incomeOpts = [...state.incomeOpts].map(item => (item.id === payload.id ? { ...payload } : item));

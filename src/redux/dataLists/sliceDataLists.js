@@ -4,7 +4,7 @@ const sliceIncomeData = createSlice({
   name: 'incomeData',
   initialState: [],
   reducers: {
-    getIncomeData: (state, { payload }) => payload,
+    getIncomeData: (state, { payload }) => (!payload ? state : payload),
     postIncome: (state, { payload }) => [...state, payload],
     updateIncome: (state, { payload }) => [...state].map(item => (item.id === payload.id ? { ...payload } : item)),
   },
@@ -13,9 +13,12 @@ const sliceSpendingData = createSlice({
   name: 'spendingData',
   initialState: [],
   reducers: {
-    getSpendingData: (state, { payload }) => payload,
+    getSpendingData: (state, { payload }) => (!payload ? state : payload),
     postSpending: (state, { payload }) => [...state, payload],
-    updateSpending: (state, { payload }) => [...state].map(item => (item.id === payload.id ? { ...payload } : item)),
+    updateSpending: (state, { payload }) => {
+      console.log('payload patch object', payload);
+      return [...state].map(item => (item.id === payload.id ? { ...payload } : item));
+    },
   },
 });
 

@@ -30,7 +30,7 @@ export const operationGetOptions = category => async dispatch => {
   category === 'spending' ? dispatch(requestSpendingOpts()) : dispatch(requestIncomeOpts());
   try {
     const data = category === 'spending' ? await api.getSpendingOpts() : await api.getIncomeOpts();
-    if (!data.length) {
+    if (!data?.length) {
       dispatch(onNullOptions(category));
     } else category === 'spending' ? dispatch(getInitSpendingOpts(data)) : dispatch(getInitIncomeOpts(data));
   } catch (error) {
@@ -41,9 +41,10 @@ export const operationPostOptions = (category, data) => async dispatch => {
   category === 'spending' ? dispatch(requestPostSpendingOpts()) : dispatch(requestPostIncomeOpts());
   try {
     const response = await api.postOpts(category, data);
-    category === 'spending' ? dispatch(postSpendingOpt(response)) : dispatch(postIncomeOpt(response));
+    (await category) === 'spending' ? dispatch(postSpendingOpt(response)) : dispatch(postIncomeOpt(response));
   } catch (error) {
-    category === 'spending' ? dispatch(postSpendingOptsError(error)) : dispatch(postIncomeOptsError(error));
+    console.log('error', error);
+    category === 'spending' ? dispatch(postSpendingOptsError(error.message)) : dispatch(postIncomeOptsError(error.message));
   }
 };
 export const operationPatchOptions = (category, data, id) => async dispatch => {

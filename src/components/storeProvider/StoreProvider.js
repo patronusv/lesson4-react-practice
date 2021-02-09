@@ -34,8 +34,6 @@ const StoreProvider = ({ children }) => {
   const match = useRouteMatch();
 
   const onHandleSubmit = async ({ key, data, id = null }) => {
-    console.log('datahandlesubmit', data);
-    console.log('idhandlesubmit', id);
     if (!id) {
       if (key === 'spending') {
         dispatch(operationPostSpending(key, data));
@@ -43,7 +41,6 @@ const StoreProvider = ({ children }) => {
         dispatch(operationPostIncome(key, data));
       }
     } else {
-      console.log('update');
       if (key === 'spending') {
         dispatch(operationPatchSpending(key, data, id));
         // setSpendData(prevState => [...prevState, responseData]);
@@ -59,7 +56,6 @@ const StoreProvider = ({ children }) => {
   const getPeriod = ({ date, period }) => setPeriod({ date, period });
 
   const getCardData = ({ category }) => {
-    console.log(category === 'spending');
     if (category === 'spending') return spendingItem;
     if (category === 'income') return incomeItem;
   };
@@ -71,7 +67,6 @@ const StoreProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log('match', match);
     if (match.path === '/') {
       dispatch(setCategory(''));
     }

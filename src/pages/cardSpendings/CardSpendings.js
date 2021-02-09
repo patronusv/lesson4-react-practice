@@ -16,11 +16,12 @@ import ApiServicesClass from '../../services/apiServicesClass';
 import { postSpendingOpt, getInitSpendingOpts } from '../../redux/options/sliceOptions';
 import withOptionsCards from '../../components/HOCs/withOptionsCards';
 import Button from '../../components/shared/button/Button';
+import { getCategoryTitle } from '../../utils/helpers';
 
 const { outlaySets, currencySets } = selectOptions;
 
 const api = new ApiServicesClass();
-
+const buttonStyle = { minHeight: '1.6em' };
 const CardSpendings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -60,7 +61,7 @@ const CardSpendings = () => {
     const activeCard = {
       date: cardData ? cardData.date : moment(Date.now()).format('YYYY-MM-DD'),
       time: cardData ? cardData.time : moment(Date.now()).format('HH:mm'),
-      outlay: cardData ? cardData.outlay : spendingOpts[0]?.value,
+      outlay: cardData ? cardData.outlay : '',
       total: cardData ? cardData.total : '',
       currency: cardData ? cardData.currency : currencySets.options[0].value,
     };
@@ -69,9 +70,9 @@ const CardSpendings = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(setCard({ outlay: spendingOpts[0]?.value }));
+    dispatch(setCard({ outlay: outlay ? outlay : spendingOpts[0]?.value }));
     // eslint-disable-next-line
-  }, [spendingOpts[0]?.value]);
+  }, [spendingOpts[0]?.value, outlay]);
 
   return (
     <div>
@@ -79,7 +80,7 @@ const CardSpendings = () => {
         <CardTitle title="Расходы" />
         <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
         <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-        <Button title={!outlay ? 'Выберите категорию' : outlay} onClick={onOpenCategories} />
+        <Button title={getCategoryTitle(outlay, spendingOpts)} onClick={onOpenCategories} style={buttonStyle} />
         {/* <Select value={outlay} onChange={onHandleChange} sets={outlaySets} /> */}
         <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
         <Select onChange={onHandleChange} sets={currencySets} />

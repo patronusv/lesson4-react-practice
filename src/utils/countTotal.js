@@ -20,7 +20,6 @@ export default class CountTotal {
   };
 
   getMonthPeriod = (data, date = this.currentDate) => {
-    console.log('data', data);
     return data.filter(item => moment(item.date).format('YYYY-MM') === moment(date).format('YYYY-MM'));
     // .reduce((acc, item) => acc + Number(item.total), 0);
   };

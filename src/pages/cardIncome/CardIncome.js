@@ -14,9 +14,10 @@ import { findIncome } from '../../redux/dataLists/selectorsDataLists';
 import withOptionsCards from '../../components/HOCs/withOptionsCards';
 import { getIncomeOpts } from '../../redux/options/selectorOptions';
 import Button from '../../components/shared/button/Button';
+import { getCategoryTitle } from '../../utils/helpers';
 
 const { incomeSets, currencySets } = selectOptions;
-
+const buttonStyle = { minHeight: '1.6em' };
 const CardIncome = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -54,7 +55,7 @@ const CardIncome = () => {
     const activeCard = {
       date: cardData ? cardData.date : moment(Date.now()).format('YYYY-MM-DD'),
       time: cardData ? cardData.time : moment(Date.now()).format('HH:mm'),
-      income: cardData ? cardData.income : incomeOpts[0]?.value,
+      income: cardData ? cardData.income : '',
       total: cardData ? cardData.total : '',
       currency: cardData ? cardData.currency : currencySets.options[0].value,
     };
@@ -63,9 +64,9 @@ const CardIncome = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(setCard({ income: incomeOpts[0]?.value }));
+    dispatch(setCard({ income: income ? income : incomeOpts[0]?.value }));
     // eslint-disable-next-line
-  }, [incomeOpts[0]?.value]);
+  }, [incomeOpts[0]?.value, income]);
 
   return (
     <div>
@@ -73,7 +74,7 @@ const CardIncome = () => {
         <CardTitle title="Доходы" />
         <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
         <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-        <Button title={!income ? 'Выберите категорию' : income} onClick={onOpenCategories} />
+        <Button title={getCategoryTitle(income, incomeOpts)} onClick={onOpenCategories} style={buttonStyle} />
         {/* <Select value={income} onChange={onHandleChange} sets={incomeSets} /> */}
         <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
         <Select onChange={onHandleChange} sets={currencySets} />

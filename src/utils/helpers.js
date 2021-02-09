@@ -64,3 +64,11 @@ export const getDataByPeriodDate = (dataList, period, date) => {
 };
 
 export const getDataByCategory = (category, incomeData, spendData) => (category === 'outlay' ? spendData : category === 'income' ? incomeData : []);
+
+export const getCategoryTitle = (value, options) => {
+  return options.find(item => item.value === value)?.title;
+};
+
+export const getOptionId = (value, options) => {
+  return options.find(item => item.value === value)?.id;
+};

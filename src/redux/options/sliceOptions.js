@@ -37,6 +37,12 @@ const sliceOptions = createSlice({
     offNullOptions: (state, { payload }) => {
       state.isNull[payload] = false;
     },
+    deleteIncomeOpt: (state, { payload }) => {
+      state.incomeOpts = [...state.incomeOpts].filter(item => item.id !== payload);
+    },
+    deleteSpendingOpt: (state, { payload }) => {
+      state.spendingOpts = [...state.spendingOpts].filter(item => item.id !== payload);
+    },
   },
 });
 
@@ -50,4 +56,6 @@ export const {
   patchSpendingOpt,
   onNullOptions,
   offNullOptions,
+  deleteIncomeOpt,
+  deleteSpendingOpt,
 } = sliceOptions.actions;

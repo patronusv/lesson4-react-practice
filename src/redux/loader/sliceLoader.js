@@ -16,6 +16,8 @@ const sliceLoader = createSlice({
     requestPostSpendingOpts: () => true,
     requestPatchIncomeOpts: () => true,
     requestPatchSpendingOpts: () => true,
+    requestDeleteIncomeOpts: () => true,
+    requestDeleteSpendingOpts: () => true,
     loaderOff: () => false,
   },
 });
@@ -36,4 +38,6 @@ export const {
   requestPostSpendingOpts,
   requestPatchIncomeOpts,
   requestPatchSpendingOpts,
+  requestDeleteIncomeOpts,
+  requestDeleteSpendingOpts,
 } = sliceLoader.actions;

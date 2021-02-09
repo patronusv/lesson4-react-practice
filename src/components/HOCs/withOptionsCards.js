@@ -18,20 +18,22 @@ const withOptionsCards = WrappedComponent => {
 
     console.log('match', match);
     const options = useSelector(getCurrentOptions);
-    const foo = useSelector(state => state.options);
+
     useEffect(() => {
       dispatch(setCategory(category));
-      console.log('options.length', options.length);
-      console.log('foo', foo);
+    }, []);
+    useEffect(() => {
       if (!options.length) {
-        console.log('dispatching categories');
         dispatch(operationGetOptions(category));
       }
-    }, []);
+    }, [options.length]);
     const postBaseOptions = () => {
-      console.log('dataSets.options', dataSets.options);
-      isNullOptions && dataSets.options.map(item => dispatch(operationPostOptions(category, item)));
-      isNullOptions && dispatch(offNullOptions(category));
+      isNullOptions &&
+        [...dataSets.options].forEach(async (item, idx, array) => {
+          await dispatch(operationPostOptions(category, item));
+          idx === array.length - 1 && dispatch(offNullOptions(category));
+        });
+      // isNullOptions && dispatch(offNullOptions(category));
     };
     useEffect(() => {
       postBaseOptions();

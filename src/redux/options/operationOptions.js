@@ -6,6 +6,8 @@ import {
   postIncomeOptsError,
   patchSpendingOptsError,
   patchIncomeOptsError,
+  deleteSpendingOptsError,
+  deleteIncomeOptsError,
 } from '../error/sliceError';
 import {
   requestIncomeOpts,
@@ -14,8 +16,12 @@ import {
   requestPostIncomeOpts,
   requestPatchSpendingOpts,
   requestPatchIncomeOpts,
+  requestDeleteSpendingOpts,
+  requestDeleteIncomeOpts,
 } from '../loader/sliceLoader';
 import {
+  deleteIncomeOpt,
+  deleteSpendingOpt,
   getInitIncomeOpts,
   getInitSpendingOpts,
   onNullOptions,
@@ -41,7 +47,7 @@ export const operationPostOptions = (category, data) => async dispatch => {
   category === 'spending' ? dispatch(requestPostSpendingOpts()) : dispatch(requestPostIncomeOpts());
   try {
     const response = await api.postOpts(category, data);
-    (await category) === 'spending' ? dispatch(postSpendingOpt(response)) : dispatch(postIncomeOpt(response));
+    category === 'spending' ? await dispatch(postSpendingOpt(response)) : await dispatch(postIncomeOpt(response));
   } catch (error) {
     console.log('error', error);
     category === 'spending' ? dispatch(postSpendingOptsError(error.message)) : dispatch(postIncomeOptsError(error.message));
@@ -54,5 +60,14 @@ export const operationPatchOptions = (category, data, id) => async dispatch => {
     category === 'spending' ? dispatch(patchSpendingOpt(response)) : dispatch(patchIncomeOpt(response));
   } catch (error) {
     category === 'spending' ? dispatch(patchSpendingOptsError(error)) : dispatch(patchIncomeOptsError(error));
+  }
+};
+export const operationDeleteOptions = (category, id) => async dispatch => {
+  category === 'spending' ? dispatch(requestDeleteSpendingOpts()) : dispatch(requestDeleteIncomeOpts());
+  try {
+    const response = await api.deleteOpts(category, id);
+    category === 'spending' ? dispatch(deleteSpendingOpt(response)) : dispatch(deleteIncomeOpt(response));
+  } catch (error) {
+    category === 'spending' ? dispatch(deleteSpendingOptsError(error)) : dispatch(deleteIncomeOptsError(error));
   }
 };

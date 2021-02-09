@@ -60,4 +60,14 @@ export default class ApiServicesClass {
       .then(response => this.convertItem(response.data, id))
       .catch(error => error);
   }
+  deleteOpts(category, id) {
+    return axios
+      .delete(`${category}-opts/${id}.json`)
+      .then(response => {
+        if (response === null) {
+          return id;
+        }
+      })
+      .catch(error => error);
+  }
 }

@@ -74,5 +74,22 @@ const selectOptions = {
       },
     ],
   },
+  remEditBtns: {
+    name: 'remEditBtns',
+    options: [
+      {
+        value: '',
+        title: '...',
+      },
+      {
+        value: 'remove',
+        title: 'Удалить',
+      },
+      {
+        value: 'edit',
+        title: 'Редактировать',
+      },
+    ],
+  },
 };
 export default selectOptions;

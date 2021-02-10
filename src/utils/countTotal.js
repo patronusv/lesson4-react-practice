@@ -26,4 +26,10 @@ export default class CountTotal {
   countTotal = data => {
     return data.reduce((acc, item) => acc + Number(item.total), 0);
   };
+  incrementDate = (date = this.currentDate, period) => {
+    return moment(date).add(1, `${period}s`).format('YYYY-MM-DD');
+  };
+  decrementDate = (date = this.currentDate, period) => {
+    return moment(date).subtract(1, `${period}s`).format('YYYY-MM-DD');
+  };
 }

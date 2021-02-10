@@ -66,12 +66,6 @@ const StoreProvider = ({ children }) => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    if (match.path === '/') {
-      dispatch(setCategory(''));
-    }
-  }, [match.path]);
-
   const data = { error, onHandleSubmit, period, getPeriod, getCardData };
   return <StoreContext.Provider value={data}>{children}</StoreContext.Provider>;
 };

@@ -64,7 +64,7 @@ export default class ApiServicesClass {
     return axios
       .delete(`${category}-opts/${id}.json`)
       .then(response => {
-        if (response === null) {
+        if (response.data === null) {
           return id;
         }
       })

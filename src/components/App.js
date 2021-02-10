@@ -1,4 +1,4 @@
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect, useRouteMatch } from 'react-router-dom';
 import CardIncome from '../pages/cardIncome/CardIncome';
 import CardSpendings from '../pages/cardSpendings/CardSpendings';
 import Home from './home/Home';
@@ -10,6 +10,7 @@ import CategoryList from './categoryList/CategoryList';
 import SelectCategory from '../pages/selectCategory/SelectCategory';
 const App = () => {
   const { error } = useStore();
+  const match = useRouteMatch();
   return (
     <>
       {error ? (

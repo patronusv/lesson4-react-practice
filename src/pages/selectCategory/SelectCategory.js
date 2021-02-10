@@ -12,18 +12,23 @@ import { getCurrentOptions } from '../../redux/options/selectorOptions';
 import { Input } from '../../components/shared/input/Input';
 import { Form } from '../../components/shared/form/Form';
 import { Select } from '../../components/shared/select/Select';
-import { operationDeleteOptions, operationPostOptions } from '../../redux/options/operationOptions';
+import { operationDeleteOptions, operationPatchOptions, operationPostOptions } from '../../redux/options/operationOptions';
 import { getCategory } from '../../redux/activeCard/selectorsActiveCard';
 import selectOptions from '../../utils/selectOptions';
 import { getOptionId } from '../../utils/helpers';
 const { remEditBtns } = selectOptions;
+
+const initialCategoryState = {
+  title: '',
+  value: '',
+};
 
 const SelectCategory = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { state } = useLocation();
   const match = useRouteMatch();
-  const [newCategory, setNewCategory] = useState('');
+  const [newCategory, setNewCategory] = useState(initialCategoryState);
   const [selectName, setSelectName] = useState('');
   const [selectValue, setSelectValue] = useState('');
   const postCategory = useSelector(getCategory);
@@ -34,28 +39,48 @@ const SelectCategory = () => {
     state?.from ? history.push(state.from) : history.push('/');
   };
   const onHandleChange = e => {
-    setNewCategory(e.target.value);
+    setNewCategory(prev => ({ ...prev, title: e.target.value }));
   };
   const onHandleSubmit = e => {
     e.preventDefault();
-    const data = {
-      title: newCategory,
-      value: shortid.generate(),
-    };
-    dispatch(operationPostOptions(postCategory, data));
-    setNewCategory('');
+    if (selectValue === 'edit') {
+      const { title, value, id } = newCategory;
+      dispatch(operationPatchOptions(postCategory, { title, value }, id));
+      setSelectName('');
+      setSelectValue('');
+    } else {
+      const data = {
+        ...newCategory,
+        value: shortid.generate(),
+      };
+      dispatch(operationPostOptions(postCategory, data));
+    }
+    setNewCategory(initialCategoryState);
   };
   const onHandleSelect = e => {
     const { name, value } = e.target;
     setSelectName(name);
     setSelectValue(value);
+    console.log('selectValue', selectValue);
+    value === 'edit' && onOpenEdit(e);
+  };
+  const onOpenEdit = e => {
+    const editData = options.find(el => el.value === e.target.name);
+    setNewCategory(editData);
+  };
+  const onCancelEdit = () => {
+    setSelectName('');
+    setSelectValue('');
+    setNewCategory(initialCategoryState);
   };
   useEffect(() => {
     const id = getOptionId(selectName, options);
     console.log('selectName', selectName);
+    console.log('selectValue', selectValue);
     console.log('options', options);
     console.log('id', id);
-    selectValue && dispatch(operationDeleteOptions(postCategory, id));
+    selectValue === 'remove' && dispatch(operationDeleteOptions(postCategory, id));
+    // selectValue === 'edit' && onOpenEdit();
   }, [selectValue]);
 
   return (
@@ -75,8 +100,9 @@ const SelectCategory = () => {
         ))}
       </List>
       <Form onHandleSubmit={onHandleSubmit}>
-        <Input title="Введите название категории" onChange={onHandleChange} value={newCategory} name={category} />
-        <Button title="Добавить" type="submit" />
+        <Input title="Введите название категории" onChange={onHandleChange} value={newCategory.title} name={category} />
+        <Button title={selectValue === 'edit' ? 'Редактировать' : 'Добавить'} type="submit" />
+        {selectValue === 'edit' && <Button title="Отменить" onClick={onCancelEdit} />}
       </Form>
     </Section>
   );

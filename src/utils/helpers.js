@@ -42,9 +42,11 @@ export const calculatePeriod = (date, select, cb) => {
       break;
   }
 };
-export const searchCategoryName = (category, item, options) => {
-  const optionsArr = Object.entries(options);
-  return optionsArr.find(([key]) => key.includes(category))[1].options.find(el => el.value === item).title;
+export const searchCategoryName = (item, options) => {
+  console.log('item', item);
+  console.log('options', options);
+
+  return options.find(el => el.value === item).title;
 };
 
 export const getDataByPeriodDate = (dataList, period, date) => {

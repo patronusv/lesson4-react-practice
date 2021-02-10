@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
+import { getCategory } from '../../redux/activeCard/selectorsActiveCard';
 import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import { operationGetOptions, operationPostOptions } from '../../redux/options/operationOptions';
 import { getIncomeOpts, getSpendingOpts, getCurrentOptions, getCurrentOptionsNull } from '../../redux/options/selectorOptions';
@@ -11,22 +12,25 @@ const withOptionsCards = WrappedComponent => {
   return function WithOptionsCards(props) {
     const dispatch = useDispatch();
     const match = useRouteMatch();
-    const category = match.path.split('/')[1];
+    const category = match.url.split('/')[1];
     const isNullOptions = useSelector(getCurrentOptionsNull);
     const { outlaySets, incomeSets } = selectOptions;
     const dataSets = category === 'spending' ? outlaySets : incomeSets;
-
+    const storeCategory = useSelector(getCategory);
     console.log('match', match);
     const options = useSelector(getCurrentOptions);
 
     useEffect(() => {
-      dispatch(setCategory(category));
+      const cat = match.url.split('/')[2] === 'outlay' ? 'spending' : 'income';
+
+      category !== 'list' ? dispatch(setCategory(category)) : dispatch(setCategory(cat));
     }, []);
     useEffect(() => {
       if (!options.length) {
-        dispatch(operationGetOptions(category));
+        category !== 'list' && dispatch(operationGetOptions(category));
+        storeCategory && dispatch(operationGetOptions(storeCategory));
       }
-    }, [options.length]);
+    }, [options.length, storeCategory]);
     const postBaseOptions = () => {
       isNullOptions &&
         [...dataSets.options].forEach(async (item, idx, array) => {

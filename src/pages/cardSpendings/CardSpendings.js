@@ -50,7 +50,7 @@ const CardSpendings = () => {
 
   const onOpenCategories = () => {
     history.push({
-      pathname: `${match.url.split('/')[1]}/category`,
+      pathname: `/${match.url.split('/')[1]}/category`,
       state: {
         from: location,
       },

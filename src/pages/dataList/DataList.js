@@ -13,8 +13,13 @@ import DataListItem from '../../components/dataListIem/DataListItem';
 import { getIncome, getSpending } from '../../redux/dataLists/selectorsDataLists';
 import { getDate, getPeriod } from '../../redux/sets/selectorSets';
 import { setDate, setPeriod } from '../../redux/sets/sliceSets';
+import { setCategory } from '../../redux/activeCard/sliceActiveCard';
+import withOptionsCards from '../../components/HOCs/withOptionsCards';
+import CountTotal from '../../utils/countTotal';
 
 const { periodList } = selectOptions;
+
+const { incrementDate, decrementDate } = new CountTotal();
 
 const DataList = () => {
   const history = useHistory();
@@ -38,6 +43,12 @@ const DataList = () => {
     const result = e.target.value;
     dispatch(setPeriod(result));
   };
+  const onIncrement = () => {
+    dispatch(setDate(incrementDate(date, period)));
+  };
+  const onDecrement = () => {
+    dispatch(setDate(decrementDate(date, period)));
+  };
 
   useEffect(() => {
     const dataList = getDataByCategory(category, incomeData, spendData);
@@ -45,7 +56,7 @@ const DataList = () => {
     const currentDataList = getDataByPeriodDate(dataList, period, date);
     const renderDataList = categoryResult(currentDataList, category);
     setRenderList(renderDataList);
-
+    console.log('match.path data list', match.path);
     // eslint-disable-next-line
   }, [period, date, incomeData.length, spendData.length]);
 
@@ -56,10 +67,10 @@ const DataList = () => {
         <Button title="Go back" onClick={goBack} />
         <Select value={period} sets={periodList} onChange={onHandlePeriod} />
       </header>
-      <Button title="Left" />
+      <Button title="Left" onClick={onDecrement} />
       <Input type="date" name="date" value={date} onChange={onHandleDate} />
       {periodStr && <h2>{periodStr}</h2>}
-      <Button title="Right" />
+      <Button title="Right" onClick={onIncrement} />
       <h2>Всего: 0.00</h2>
       <ul>
         {renderList.map(item => (
@@ -70,4 +81,4 @@ const DataList = () => {
   );
 };
 
-export default DataList;
+export default withOptionsCards(DataList);

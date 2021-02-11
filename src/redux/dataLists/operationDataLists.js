@@ -1,7 +1,35 @@
 import ApiServicesClass from '../../services/apiServicesClass';
-import { getIncomeData, getSpendingData, updateIncome, updateSpending, postIncome, postSpending } from './sliceDataLists';
-import { incomeList, loaderOff, spendingList, requestIncome, requestSpending, requestPatchIncome, requestPatchSpending } from '../loader/sliceLoader';
-import { incomeError, spendingError, postIncomeError, postSpendingError, patchIncomeError, patchSpendingError } from '../error/sliceError';
+import {
+  getIncomeData,
+  getSpendingData,
+  updateIncome,
+  updateSpending,
+  postIncome,
+  postSpending,
+  deleteIncome,
+  deleteSpending,
+} from './sliceDataLists';
+import {
+  incomeList,
+  loaderOff,
+  spendingList,
+  requestIncome,
+  requestSpending,
+  requestPatchIncome,
+  requestPatchSpending,
+  requestDeleteSpending,
+  requestDeleteIncome,
+} from '../loader/sliceLoader';
+import {
+  incomeError,
+  spendingError,
+  postIncomeError,
+  postSpendingError,
+  patchIncomeError,
+  patchSpendingError,
+  deleteIncomeError,
+  deleteSpendingError,
+} from '../error/sliceError';
 
 const api = new ApiServicesClass();
 
@@ -55,5 +83,21 @@ export const operationPatchSpending = (category, data, id) => dispatch => {
       dispatch(updateSpending(data));
     })
     .catch(error => dispatch(patchSpendingError(error)))
+    .finally(() => dispatch(loaderOff()));
+};
+export const operationDeleteIncome = (category, id) => dispatch => {
+  dispatch(requestDeleteIncome());
+  api
+    .delete(category, id)
+    .then(data => dispatch(deleteIncome(data)))
+    .catch(error => dispatch(deleteIncomeError(error)))
+    .finally(() => dispatch(loaderOff()));
+};
+export const operationDeleteSpending = (category, id) => dispatch => {
+  dispatch(requestDeleteSpending());
+  api
+    .delete(category, id)
+    .then(data => dispatch(deleteSpending(data)))
+    .catch(error => dispatch(deleteSpendingError(error)))
     .finally(() => dispatch(loaderOff()));
 };

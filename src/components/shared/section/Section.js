@@ -1,8 +1,9 @@
 import React from 'react';
+import Title from '../title/Title';
 const Section = ({ children, title }) => {
   return (
     <section>
-      {title && <h2>{title}</h2>}
+      <Title title={title} />
       {children}
     </section>
   );

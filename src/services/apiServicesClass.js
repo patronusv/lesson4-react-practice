@@ -34,6 +34,16 @@ export default class ApiServicesClass {
       .then(response => this.convertItem(response.data, id))
       .catch(error => error);
   }
+  delete(category, id) {
+    return axios
+      .delete(`${category}/${id}.json`)
+      .then(response => {
+        if (response.data === null) {
+          return id;
+        }
+      })
+      .catch(error => error);
+  }
   getSpendingOpts() {
     return axios
       .get('spending-opts.json')

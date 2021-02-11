@@ -8,6 +8,8 @@ import { getIncome, getSpending } from '../../redux/dataLists/selectorsDataLists
 import { useEffect } from 'react';
 import { reset } from '../../redux/sets/sliceSets';
 import { setCategory } from '../../redux/activeCard/sliceActiveCard';
+import Container from '../shared/container/Container';
+import Title from '../shared/title/Title';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,8 +29,8 @@ const Home = () => {
 
   return (
     <Section>
-      <div style={{ width: 'max-content', margin: '0 auto', border: '1px solid navy' }}>
-        <h2>Расходы</h2>
+      <Container>
+        <Title title="Расходы" />
         <p>RUB</p>
         <ul>
           <li>Сегодня: {countTotal(getDayPeriod(spending))}</li>
@@ -36,19 +38,19 @@ const Home = () => {
           <li>Месяц: {countTotal(getMonthPeriod(spending))}</li>
         </ul>
         <Button onClick={goToSpending} title="+" />
-      </div>
-      <div style={{ width: 'max-content', margin: '0 auto', border: '1px solid navy' }}>
-        <h2>Доходы</h2>
+      </Container>
+      <Container>
+        <Title title="Доходы" />
         <p>RUB</p>
         <ul>
           <li>Месяц: {countTotal(getMonthPeriod(income))}</li>
         </ul>
         <Button onClick={goToIncome} title="+" />
-      </div>
-      <div style={{ width: 'max-content', margin: '0 auto', border: '1px solid navy' }}>
+      </Container>
+      <Container>
         <Button onClick={goToListIncome} title="Все доходы" />
         <Button onClick={goToListOutlay} title="Все расходы" />
-      </div>
+      </Container>
     </Section>
   );
 };

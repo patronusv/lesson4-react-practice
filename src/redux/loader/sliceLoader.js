@@ -18,6 +18,8 @@ const sliceLoader = createSlice({
     requestPatchSpendingOpts: () => true,
     requestDeleteIncomeOpts: () => true,
     requestDeleteSpendingOpts: () => true,
+    requestDeleteIncome: () => true,
+    requestDeleteSpending: () => true,
     loaderOff: () => false,
   },
 });
@@ -40,4 +42,6 @@ export const {
   requestPatchSpendingOpts,
   requestDeleteIncomeOpts,
   requestDeleteSpendingOpts,
+  requestDeleteIncome,
+  requestDeleteSpending,
 } = sliceLoader.actions;

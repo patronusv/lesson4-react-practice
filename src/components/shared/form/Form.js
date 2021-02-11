@@ -2,10 +2,7 @@ import React from 'react';
 
 export const Form = ({ children, onHandleSubmit }) => {
   return (
-    <form
-      onSubmit={onHandleSubmit}
-      style={{ border: '1px solid navy', width: 'max-content', margin: '0 auto', display: 'flex', flexDirection: 'column' }}
-    >
+    <form onSubmit={onHandleSubmit} className="form-control p-3">
       {children}
     </form>
   );

@@ -18,6 +18,8 @@ const sliceError = createSlice({
     patchSpendingOptsError: (_, { payload }) => payload,
     deleteIncomeOptsError: (_, { payload }) => payload,
     deleteSpendingOptsError: (_, { payload }) => payload,
+    deleteIncomeError: (_, { payload }) => payload,
+    deleteSpendingError: (_, { payload }) => payload,
   },
 });
 
@@ -39,4 +41,6 @@ export const {
   patchSpendingOptsError,
   deleteIncomeOptsError,
   deleteSpendingOptsError,
+  deleteIncomeError,
+  deleteSpendingError,
 } = sliceError.actions;

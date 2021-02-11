@@ -6,6 +6,7 @@ import App from './components/App';
 import StoreProvider from './components/storeProvider/StoreProvider';
 import store from './redux/store';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './test';
 
 ReactDOM.render(

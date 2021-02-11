@@ -16,6 +16,7 @@ import { operationDeleteOptions, operationPatchOptions, operationPostOptions } f
 import { getCategory } from '../../redux/activeCard/selectorsActiveCard';
 import selectOptions from '../../utils/selectOptions';
 import { getOptionId } from '../../utils/helpers';
+import Container from '../../components/shared/container/Container';
 const { remEditBtns } = selectOptions;
 
 const initialCategoryState = {
@@ -85,25 +86,27 @@ const SelectCategory = () => {
 
   return (
     <Section>
-      <CardTitle title="Категория" mustSubmit={false} history={history} />
-      <List>
-        {options.map(item => (
-          <Item key={item.value}>
-            <Button title={item.title} name={category} value={item.value} onClick={onSelectCategory} />
-            <Select
-              sets={{ ...remEditBtns, name: item.value }}
-              onChange={onHandleSelect}
-              value={selectName === item.value ? selectValue : remEditBtns.options[0].title}
-            />
-            {/* <Button title={'...'} /> */}
-          </Item>
-        ))}
-      </List>
-      <Form onHandleSubmit={onHandleSubmit}>
-        <Input title="Введите название категории" onChange={onHandleChange} value={newCategory.title} name={category} />
-        <Button title={selectValue === 'edit' ? 'Редактировать' : 'Добавить'} type="submit" />
-        {selectValue === 'edit' && <Button title="Отменить" onClick={onCancelEdit} />}
-      </Form>
+      <Container>
+        <CardTitle title="Категория" mustSubmit={false} history={history} />
+        <List>
+          {options.map(item => (
+            <Item key={item.value}>
+              <Button title={item.title} name={category} value={item.value} onClick={onSelectCategory} />
+              <Select
+                sets={{ ...remEditBtns, name: item.value }}
+                onChange={onHandleSelect}
+                value={selectName === item.value ? selectValue : remEditBtns.options[0].title}
+              />
+              {/* <Button title={'...'} /> */}
+            </Item>
+          ))}
+        </List>
+        <Form onHandleSubmit={onHandleSubmit}>
+          <Input title="Введите название категории" onChange={onHandleChange} value={newCategory.title} name={category} />
+          <Button title={selectValue === 'edit' ? 'Редактировать' : 'Добавить'} type="submit" />
+          {selectValue === 'edit' && <Button title="Отменить" onClick={onCancelEdit} />}
+        </Form>
+      </Container>
     </Section>
   );
 };

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch, withRouter } from 'react-router-dom';
 import { resetCard, resetItemId } from '../../../redux/activeCard/sliceActiveCard';
 import { getItemId } from '../../../redux/activeCard/selectorsActiveCard';
+import Title from '../title/Title';
+import Button from '../button/Button';
 const CardTitle = ({ title, mustSubmit = true }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,12 +21,10 @@ const CardTitle = ({ title, mustSubmit = true }) => {
     }
   };
   return (
-    <header style={{ border: '1px solid navy', display: 'flex' }}>
-      <button type="button" onClick={goBackHome}>
-        Go back
-      </button>
-      <h2>{title}</h2>
-      {mustSubmit && <button type="submit">Ok</button>}
+    <header className="navbar navbar-light bg-info mb-1">
+      <Button title="Go back" onClick={goBackHome} className="btn-warning" />
+      <Title title={title} />
+      {mustSubmit && <Button title="Ok" type="submit" className="btn-success" />}
     </header>
   );
 };

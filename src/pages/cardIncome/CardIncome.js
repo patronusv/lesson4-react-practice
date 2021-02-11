@@ -15,6 +15,8 @@ import withOptionsCards from '../../components/HOCs/withOptionsCards';
 import { getIncomeOpts } from '../../redux/options/selectorOptions';
 import Button from '../../components/shared/button/Button';
 import { getCategoryTitle } from '../../utils/helpers';
+import Section from '../../components/shared/section/Section';
+import Container from '../../components/shared/container/Container';
 
 const { incomeSets, currencySets } = selectOptions;
 const buttonStyle = { minHeight: '1.6em' };
@@ -69,17 +71,19 @@ const CardIncome = () => {
   }, [incomeOpts[0]?.value, income]);
 
   return (
-    <div>
-      <Form onHandleSubmit={onFormSubmit}>
-        <CardTitle title="Доходы" />
-        <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
-        <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-        <Button title={getCategoryTitle(income, incomeOpts)} onClick={onOpenCategories} style={buttonStyle} />
-        {/* <Select value={income} onChange={onHandleChange} sets={incomeSets} /> */}
-        <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
-        <Select onChange={onHandleChange} sets={currencySets} />
-      </Form>
-    </div>
+    <Section>
+      <Container>
+        <Form onHandleSubmit={onFormSubmit}>
+          <CardTitle title="Доходы" />
+          <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
+          <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
+          <Button title={getCategoryTitle(income, incomeOpts)} onClick={onOpenCategories} style={buttonStyle} />
+          {/* <Select value={income} onChange={onHandleChange} sets={incomeSets} /> */}
+          <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
+          <Select onChange={onHandleChange} sets={currencySets} />
+        </Form>
+      </Container>
+    </Section>
   );
 };
 export default withOptionsCards(CardIncome);

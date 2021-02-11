@@ -17,6 +17,8 @@ import { postSpendingOpt, getInitSpendingOpts } from '../../redux/options/sliceO
 import withOptionsCards from '../../components/HOCs/withOptionsCards';
 import Button from '../../components/shared/button/Button';
 import { getCategoryTitle } from '../../utils/helpers';
+import Container from '../../components/shared/container/Container';
+import Section from '../../components/shared/section/Section';
 
 const { outlaySets, currencySets } = selectOptions;
 
@@ -75,17 +77,19 @@ const CardSpendings = () => {
   }, [spendingOpts[0]?.value, outlay]);
 
   return (
-    <div>
-      <Form onHandleSubmit={onFormSubmit}>
-        <CardTitle title="Расходы" />
-        <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
-        <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-        <Button title={getCategoryTitle(outlay, spendingOpts)} onClick={onOpenCategories} style={buttonStyle} />
-        {/* <Select value={outlay} onChange={onHandleChange} sets={outlaySets} /> */}
-        <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
-        <Select onChange={onHandleChange} sets={currencySets} />
-      </Form>
-    </div>
+    <Section>
+      <Container>
+        <Form onHandleSubmit={onFormSubmit}>
+          <CardTitle title="Расходы" />
+          <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
+          <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
+          <Button title={getCategoryTitle(outlay, spendingOpts)} onClick={onOpenCategories} style={buttonStyle} />
+          {/* <Select value={outlay} onChange={onHandleChange} sets={outlaySets} /> */}
+          <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
+          <Select onChange={onHandleChange} sets={currencySets} />
+        </Form>
+      </Container>
+    </Section>
   );
 };
 export default withOptionsCards(CardSpendings);

@@ -16,6 +16,7 @@ import { setDate, setPeriod } from '../../redux/sets/sliceSets';
 import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import withOptionsCards from '../../components/HOCs/withOptionsCards';
 import CountTotal from '../../utils/countTotal';
+import Container from '../../components/shared/container/Container';
 
 const { periodList } = selectOptions;
 
@@ -63,20 +64,22 @@ const DataList = () => {
   console.log('renderlist', renderList);
   return (
     <Section>
-      <header>
-        <Button title="Go back" onClick={goBack} />
-        <Select value={period} sets={periodList} onChange={onHandlePeriod} />
-      </header>
-      <Button title="Left" onClick={onDecrement} />
-      <Input type="date" name="date" value={date} onChange={onHandleDate} />
-      {periodStr && <h2>{periodStr}</h2>}
-      <Button title="Right" onClick={onIncrement} />
-      <h2>Всего: 0.00</h2>
-      <ul>
-        {renderList.map(item => (
-          <DataListItem key={item.category} item={item} period={periodStr} />
-        ))}
-      </ul>
+      <Container>
+        <header className="d-flex row mb-1">
+          <Button title="Go back" onClick={goBack} />
+          <Select value={period} sets={periodList} onChange={onHandlePeriod} />
+        </header>
+        <Button title="Left" onClick={onDecrement} />
+        <Input type="date" name="date" value={date} onChange={onHandleDate} />
+        {periodStr && <h2>{periodStr}</h2>}
+        <Button title="Right" onClick={onIncrement} />
+        <h2>Всего: 0.00</h2>
+        <ul>
+          {renderList.map(item => (
+            <DataListItem key={item.category} item={item} period={periodStr} />
+          ))}
+        </ul>
+      </Container>
     </Section>
   );
 };

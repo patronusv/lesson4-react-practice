@@ -7,6 +7,7 @@ const sliceIncomeData = createSlice({
     getIncomeData: (state, { payload }) => (!payload ? state : payload),
     postIncome: (state, { payload }) => [...state, payload],
     updateIncome: (state, { payload }) => [...state].map(item => (item.id === payload.id ? { ...payload } : item)),
+    deleteIncome: (state, { payload }) => [...state].filter(item => item.id !== payload),
   },
 });
 const sliceSpendingData = createSlice({
@@ -15,10 +16,8 @@ const sliceSpendingData = createSlice({
   reducers: {
     getSpendingData: (state, { payload }) => (!payload ? state : payload),
     postSpending: (state, { payload }) => [...state, payload],
-    updateSpending: (state, { payload }) => {
-      console.log('payload patch object', payload);
-      return [...state].map(item => (item.id === payload.id ? { ...payload } : item));
-    },
+    updateSpending: (state, { payload }) => [...state].map(item => (item.id === payload.id ? { ...payload } : item)),
+    deleteSpending: (state, { payload }) => [...state].filter(item => item.id !== payload),
   },
 });
 
@@ -27,5 +26,5 @@ const dataReducer = combineReducers({
   spending: sliceSpendingData.reducer,
 });
 export default dataReducer;
-export const { getIncomeData, postIncome, updateIncome } = sliceIncomeData.actions;
-export const { getSpendingData, postSpending, updateSpending } = sliceSpendingData.actions;
+export const { getIncomeData, postIncome, updateIncome, deleteIncome } = sliceIncomeData.actions;
+export const { getSpendingData, postSpending, updateSpending, deleteSpending } = sliceSpendingData.actions;

@@ -10,6 +10,10 @@ import { reset } from '../../redux/sets/sliceSets';
 import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import Container from '../shared/container/Container';
 import Title from '../shared/title/Title';
+import List from '../shared/list/List';
+import Item from '../shared/item/Item';
+import Flex from '../flex/Flex';
+import Add from '../icons/add/Add';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -29,27 +33,33 @@ const Home = () => {
 
   return (
     <Section>
-      <Container>
-        <Title title="Расходы" />
+      <Container className="mb-5">
+        <Flex className="justify-content-between">
+          <Title title="Расходы" />
+          <Button onClick={goToSpending} component={Add} />
+        </Flex>
         <p>RUB</p>
-        <ul>
-          <li>Сегодня: {countTotal(getDayPeriod(spending))}</li>
-          <li>Неделя: {countTotal(getWeekPeriod(spending))}</li>
-          <li>Месяц: {countTotal(getMonthPeriod(spending))}</li>
-        </ul>
-        <Button onClick={goToSpending} title="+" />
+        <List>
+          <Item>Сегодня: {countTotal(getDayPeriod(spending))}</Item>
+          <Item>Неделя: {countTotal(getWeekPeriod(spending))}</Item>
+          <Item>Месяц: {countTotal(getMonthPeriod(spending))}</Item>
+        </List>
+      </Container>
+      <Container className="mb-5">
+        <Flex className="justify-content-between">
+          <Title title="Доходы" />
+          <Button onClick={goToIncome} component={Add} />
+        </Flex>
+        <p>RUB</p>
+        <List>
+          <Item>Месяц: {countTotal(getMonthPeriod(income))}</Item>
+        </List>
       </Container>
       <Container>
-        <Title title="Доходы" />
-        <p>RUB</p>
-        <ul>
-          <li>Месяц: {countTotal(getMonthPeriod(income))}</li>
-        </ul>
-        <Button onClick={goToIncome} title="+" />
-      </Container>
-      <Container>
-        <Button onClick={goToListIncome} title="Все доходы" />
-        <Button onClick={goToListOutlay} title="Все расходы" />
+        <Flex className="justify-content-around">
+          <Button onClick={goToListIncome} title="Все доходы" className="btn-outline-success col-5" />
+          <Button onClick={goToListOutlay} title="Все расходы" className="btn-outline-danger col-5" />
+        </Flex>
       </Container>
     </Section>
   );

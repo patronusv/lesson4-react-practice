@@ -1,8 +1,8 @@
 import React from 'react';
 import Title from '../title/Title';
-const Section = ({ children, title }) => {
+const Section = ({ children, title, className = '' }) => {
   return (
-    <section>
+    <section className={'pt-4' + ' ' + className}>
       <Title title={title} />
       {children}
     </section>

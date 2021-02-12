@@ -19,6 +19,7 @@ import Button from '../../components/shared/button/Button';
 import { getCategoryTitle } from '../../utils/helpers';
 import Container from '../../components/shared/container/Container';
 import Section from '../../components/shared/section/Section';
+import BtnCategory from '../../components/btnCategory/BtnCategory';
 
 const { outlaySets, currencySets } = selectOptions;
 
@@ -83,7 +84,7 @@ const CardSpendings = () => {
           <CardTitle title="Расходы" />
           <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
           <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-          <Button title={getCategoryTitle(outlay, spendingOpts)} onClick={onOpenCategories} style={buttonStyle} />
+          <BtnCategory title={getCategoryTitle(outlay, spendingOpts)} onClick={onOpenCategories} />
           {/* <Select value={outlay} onChange={onHandleChange} sets={outlaySets} /> */}
           <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
           <Select onChange={onHandleChange} sets={currencySets} />

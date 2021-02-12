@@ -21,7 +21,7 @@ const CardTitle = ({ title, mustSubmit = true }) => {
     }
   };
   return (
-    <header className="navbar navbar-light bg-info mb-1">
+    <header className="navbar navbar-light bg-info mb-1 px-2 ">
       <Button title="Go back" onClick={goBackHome} className="btn-warning" />
       <Title title={title} />
       {mustSubmit && <Button title="Ok" type="submit" className="btn-success" />}

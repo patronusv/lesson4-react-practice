@@ -6,12 +6,15 @@ import CategoryItem from '../categoryItem/CategoryItem';
 import List from '../shared/list/List';
 import Section from '../shared/section/Section';
 import Title from '../shared/title/Title';
+import Container from '../shared/container/Container';
 import CountTotal from '../../utils/countTotal';
 
 import { useStore } from '../storeProvider/StoreProvider';
 import Button from '../shared/button/Button';
 import { getIncome, getSpending } from '../../redux/dataLists/selectorsDataLists';
 import { getDate, getPeriod } from '../../redux/sets/selectorSets';
+import GoBack from '../icons/goBack/GoBack';
+import Flex from '../flex/Flex';
 
 const CategoryList = () => {
   const incomeData = useSelector(getIncome);
@@ -68,13 +71,17 @@ const CategoryList = () => {
   }, [dataArr]);
   return (
     <Section>
-      <Button title="Go back" onClick={onGoBack} />
-      <Title title={`${locationState.category} ${locationState.period}`} />
-      <List>
-        {list.map(item => (
-          <CategoryItem key={item.id} item={item} goToEdit={goToEdit} />
-        ))}
-      </List>
+      <Container>
+        <Flex className="align-items-center mb-3">
+          <Button component={GoBack} onClick={onGoBack} className="btn-outline-warning me-2" />
+          <Title title={`${locationState.category} ${locationState.period}`} className="mx-auto" />
+        </Flex>
+        <List>
+          {list.map(item => (
+            <CategoryItem key={item.id} item={item} goToEdit={goToEdit} />
+          ))}
+        </List>
+      </Container>
     </Section>
   );
 };

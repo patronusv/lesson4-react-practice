@@ -1,3 +1,4 @@
+import Edit from '../components/icons/edit/Edit';
 const selectOptions = {
   outlaySets: {
     title: 'Категория расходов',

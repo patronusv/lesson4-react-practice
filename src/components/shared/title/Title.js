@@ -1,7 +1,7 @@
-const Title = ({ title = '', style = {} }) => {
+const Title = ({ title = '', style = {}, className }) => {
   return (
     title && (
-      <h2 style={style} className="">
+      <h2 style={style} className={className}>
         {title}
       </h2>
     )

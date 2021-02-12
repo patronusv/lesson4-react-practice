@@ -17,6 +17,10 @@ import { setCategory } from '../../redux/activeCard/sliceActiveCard';
 import withOptionsCards from '../../components/HOCs/withOptionsCards';
 import CountTotal from '../../utils/countTotal';
 import Container from '../../components/shared/container/Container';
+import List from '../../components/shared/list/List';
+import Flex from '../../components/flex/Flex';
+import GoBack from '../../components/icons/goBack/GoBack';
+import { ChevronLeft, ChevronRight } from '../../components/icons/chevrons/Chevrons';
 
 const { periodList } = selectOptions;
 
@@ -65,20 +69,22 @@ const DataList = () => {
   return (
     <Section>
       <Container>
-        <header className="d-flex row mb-1">
-          <Button title="Go back" onClick={goBack} />
-          <Select value={period} sets={periodList} onChange={onHandlePeriod} />
+        <header className="d-flex mb-4 align-items-center">
+          <Button component={GoBack} onClick={goBack} className="btn-outline-warning me-2" />
+          <Select value={period} sets={periodList} onChange={onHandlePeriod} labelClass="col-4 me-2" />
+          <Input type="date" name="date" value={date} onChange={onHandleDate} />
         </header>
-        <Button title="Left" onClick={onDecrement} />
-        <Input type="date" name="date" value={date} onChange={onHandleDate} />
-        {periodStr && <h2>{periodStr}</h2>}
-        <Button title="Right" onClick={onIncrement} />
-        <h2>Всего: 0.00</h2>
-        <ul>
+        <Flex className="justify-content-between align-items-center mb-4">
+          <Button component={ChevronLeft} onClick={onDecrement} className="btn-outline-secondary" />
+          {periodStr && <h2>{periodStr}</h2>}
+          <Button component={ChevronRight} onClick={onIncrement} className="btn-outline-secondary" />
+        </Flex>
+        <h2 className="mb-4">Всего: 0.00</h2>
+        <List>
           {renderList.map(item => (
             <DataListItem key={item.category} item={item} period={periodStr} />
           ))}
-        </ul>
+        </List>
       </Container>
     </Section>
   );

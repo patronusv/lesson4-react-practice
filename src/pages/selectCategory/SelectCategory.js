@@ -17,6 +17,11 @@ import { getCategory } from '../../redux/activeCard/selectorsActiveCard';
 import selectOptions from '../../utils/selectOptions';
 import { getOptionId } from '../../utils/helpers';
 import Container from '../../components/shared/container/Container';
+import Cancel from '../../components/icons/cancel/Cancel';
+import Add from '../../components/icons/add/Add';
+import Edit from '../../components/icons/edit/Edit';
+import styles from './SelectCategory.module.css';
+
 const { remEditBtns } = selectOptions;
 
 const initialCategoryState = {
@@ -76,22 +81,18 @@ const SelectCategory = () => {
   };
   useEffect(() => {
     const id = getOptionId(selectName, options);
-    console.log('selectName', selectName);
-    console.log('selectValue', selectValue);
-    console.log('options', options);
-    console.log('id', id);
     selectValue === 'remove' && dispatch(operationDeleteOptions(postCategory, id));
     // selectValue === 'edit' && onOpenEdit();
   }, [selectValue]);
 
   return (
-    <Section>
+    <Section className={styles.container}>
       <Container>
         <CardTitle title="Категория" mustSubmit={false} history={history} />
         <List>
           {options.map(item => (
-            <Item key={item.value}>
-              <Button title={item.title} name={category} value={item.value} onClick={onSelectCategory} />
+            <Item key={item.value} className="d-flex align-items-center category-item">
+              <Button title={item.title} name={category} value={item.value} onClick={onSelectCategory} className="list-group-item-action" />
               <Select
                 sets={{ ...remEditBtns, name: item.value }}
                 onChange={onHandleSelect}
@@ -101,10 +102,20 @@ const SelectCategory = () => {
             </Item>
           ))}
         </List>
-        <Form onHandleSubmit={onHandleSubmit}>
-          <Input title="Введите название категории" onChange={onHandleChange} value={newCategory.title} name={category} />
-          <Button title={selectValue === 'edit' ? 'Редактировать' : 'Добавить'} type="submit" />
-          {selectValue === 'edit' && <Button title="Отменить" onClick={onCancelEdit} />}
+        <Form onHandleSubmit={onHandleSubmit} className="d-flex">
+          <Input
+            title="Категория"
+            placeholder="Введите название"
+            onChange={onHandleChange}
+            value={newCategory.title}
+            name={category}
+            labelClass="align-content-start"
+            inputClass="flex-grow-1 col-6"
+          />
+          <div className="d-flex">
+            <Button component={selectValue === 'edit' ? Edit : Add} type="submit" className="py-0" />
+            {selectValue === 'edit' && <Button component={Cancel} onClick={onCancelEdit} className="py-0" />}
+          </div>
         </Form>
       </Container>
     </Section>

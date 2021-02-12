@@ -17,6 +17,7 @@ import Button from '../../components/shared/button/Button';
 import { getCategoryTitle } from '../../utils/helpers';
 import Section from '../../components/shared/section/Section';
 import Container from '../../components/shared/container/Container';
+import BtnCategory from '../../components/btnCategory/BtnCategory';
 
 const { incomeSets, currencySets } = selectOptions;
 const buttonStyle = { minHeight: '1.6em' };
@@ -77,7 +78,7 @@ const CardIncome = () => {
           <CardTitle title="Доходы" />
           <Input title="День" onChange={onHandleChange} type="date" value={date} name="date" />
           <Input title="Время" onChange={onHandleChange} type="time" value={time} name="time" />
-          <Button title={getCategoryTitle(income, incomeOpts)} onClick={onOpenCategories} style={buttonStyle} />
+          <BtnCategory title={getCategoryTitle(income, incomeOpts)} onClick={onOpenCategories} />
           {/* <Select value={income} onChange={onHandleChange} sets={incomeSets} /> */}
           <Input title="Сумма" onChange={onHandleChange} type="text" value={total} placeholder="Введите сумму" name="total" />
           <Select onChange={onHandleChange} sets={currencySets} />

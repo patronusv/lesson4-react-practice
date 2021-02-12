@@ -4,8 +4,10 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { searchCategoryName } from '../../utils/helpers';
 // import selectOptions from '../../utils/selectOptions';
 import Button from '../shared/button/Button';
+import Item from '../shared/item/Item';
 import { getCurrentOptions } from '../../redux/options/selectorOptions';
 import { getCategory } from '../../redux/activeCard/selectorsActiveCard';
+import GoIn from '../icons/goIn/GoIn';
 
 const DataListItem = ({ item, period }) => {
   const [cat, setCat] = useState('');
@@ -37,10 +39,12 @@ const DataListItem = ({ item, period }) => {
     // eslint-disable-next-line
   }, [selectOptions]);
   return (
-    <li>
-      <span>{cat}:</span> <span>{total}</span>
-      <Button title="==>>" onClick={onOpenCategory} />
-    </li>
+    <Item className="d-flex justify-content-between align-items-center">
+      <p className="d-flex align-items-center my-0 fs-4 fw-bold">
+        <span className="me-2">{cat}:</span> <span>{total}</span>
+      </p>
+      <Button component={GoIn} onClick={onOpenCategory} className="btn-outline-info" />
+    </Item>
   );
 };
 
